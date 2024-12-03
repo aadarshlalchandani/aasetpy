@@ -16,8 +16,6 @@ You can follow instructions in the last comment [here](https://gist.github.com/a
 ./run.sh python_file_name
 ```
 
-<br/>
-
 <details>
 
 <summary>
