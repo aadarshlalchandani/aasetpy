@@ -1,5 +1,6 @@
 from src.utils import resource_usage
 from dotenv import load_dotenv
+
 import os
 
 load_dotenv(override=True)
