@@ -8,7 +8,7 @@ def main(n: int = 5):
     elif n == 0 or n == 1:
         return 1
     else:
-        return n * test_factorial(n - 1)
+        return n * main(n - 1)
 
 
 if __name__ == "__main__":
