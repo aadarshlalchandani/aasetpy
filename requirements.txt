@@ -4,6 +4,6 @@ pytest
 pylint
 requests
 psutil
+python-dotenv
 
 ## add more dependencies here...
-
