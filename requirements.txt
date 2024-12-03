@@ -1,0 +1,9 @@
+## general testing and code review libraries in python
+coverage
+pytest
+pylint
+requests
+psutil
+
+## add more dependencies here...
+
