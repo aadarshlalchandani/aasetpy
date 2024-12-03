@@ -1,5 +1,10 @@
 from src.utils import resource_usage
+from dotenv import load_dotenv
+import os
 
+load_dotenv(override=True)
+
+AUTH_TOKEN = os.environ["AUTH_TOKEN"]
 
 @resource_usage
 def main(n: int = 5):
