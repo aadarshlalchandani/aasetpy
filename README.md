@@ -4,11 +4,13 @@ Modify **`README.md`** as per your project
 
 ## Setup the Virtual Environment
 
-```bash
-rm -rf ~/.wget-hsts && wget -q -O - https://gist.github.com/aadarshlalchandani/b737e77a480a70a4755267dd81f82a68/raw | bash
-```
+Open terminal in an empty folder/
 
-You can follow instructions in the last comment [here](https://gist.github.com/aadarshlalchandani/b737e77a480a70a4755267dd81f82a68/raw)
+You can run this command by following instructions [here](https://gist.github.com/aadarshlalchandani/b737e77a480a70a4755267dd81f82a68/raw).
+
+```bash
+aasetpy
+```
 
 ## Run your python scripts
 
