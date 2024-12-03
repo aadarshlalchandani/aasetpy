@@ -4,7 +4,7 @@ import os
 
 load_dotenv(override=True)
 
-AUTH_TOKEN = os.environ["AUTH_TOKEN"]
+AUTH_TOKEN = os.getenv("AUTH_TOKEN")
 
 @resource_usage
 def main(n: int = 5):
