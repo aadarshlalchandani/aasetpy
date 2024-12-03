@@ -1,0 +1,9 @@
+## Modify docker-compose.yml as per your project
+
+services:
+  docker-project:
+    build: .
+    env_file:
+      - .env
+    volumes:
+    - ./logs:/logs
