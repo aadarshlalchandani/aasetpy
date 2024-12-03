@@ -1,1 +1,12 @@
+## general python files and directories to be ignored in git
+env/
+venv/
+*.log
+*.out
+__pycache__/
+.env
+.venv
+.vscode
+
+## add more keywords to ignore...
 
