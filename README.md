@@ -6,7 +6,7 @@ Modify **`README.md`** as per your project
 
 Open terminal in an empty folder/
 
-You can run this command by following instructions [here](https://gist.github.com/aadarshlalchandani/b737e77a480a70a4755267dd81f82a68/raw).
+You can run this command by following instructions [here]([https://gist.github.com/aadarshlalchandani/b737e77a480a70a4755267dd81f82a68/raw](https://gist.github.com/aadarshlalchandani/b737e77a480a70a4755267dd81f82a68?permalink_comment_id=5315260#gistcomment-5315260)).
 
 ```bash
 aasetpy
