@@ -1,4 +1,7 @@
 #!/bin/bash
+
+## credits: aadarshlalchandani/aasetpy
+
 start_time=$(date +%s)
 
 ## activate the virtual environment
