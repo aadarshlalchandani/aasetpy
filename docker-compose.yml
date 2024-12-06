@@ -2,7 +2,7 @@
 ## credits: aadarshlalchandani/aasetpy
 
 services:
-  docker-project:
+  your_project_name:
     build: .
     env_file:
       - .env
