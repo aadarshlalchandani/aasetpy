@@ -18,7 +18,7 @@ aasetpy
 ```bash
 ./run.sh python_filename
 ```
-The File Logs will be stored in `logs/<python_filename>_logs.log`.
+The File Logs will be stored in `logs/python_filename_logs.log`.
 
 <details>
 
