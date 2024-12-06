@@ -16,14 +16,15 @@ aasetpy
 ## Run your python scripts
 
 ```bash
-./run.sh python_file_name
+./run.sh python_filename
 ```
+The File Logs will be stored in `logs/<python_filename>_logs.log`.
 
 <details>
 
 <summary>
 <h2 style="display: inline;">
-Containerization of the Python Project
+Containerization of the your_project_name
 </h2>
 </summary>
 
@@ -36,25 +37,25 @@ sudo docker-compose up --build -d
 ### Access the real time project logs
 
 ```bash
-sudo docker exec -it docker_image_name tail -f logs/main_logs.log
+sudo docker exec -it DOCKER_IMAGE_NAME tail -f logs/main_logs.log
 ```
 
 ### Access all logs in the docker container with filename
 
 ```bash
-sudo docker exec -it docker_image_name sh -c 'for file in logs/*.log; do echo "File: $file"; cat "$file"; echo -en "\n\n"; done'
+sudo docker exec -it DOCKER_IMAGE_NAME sh -c 'for file in logs/*.log; do echo "File: $file"; cat "$file"; echo -en "\n\n"; done'
 ```
 
 ### Access Docker Container
 
 ```bash
-sudo docker ps --filter name=docker_image_name
+sudo docker ps --filter name=DOCKER_IMAGE_NAME
 ```
 
 ### Stop the API Docker Container
 
 ```bash
-sudo docker stop $(sudo docker ps -aq --filter name=docker_image_name)
+sudo docker stop $(sudo docker ps -aq --filter name=DOCKER_IMAGE_NAME)
 ```
 
 </details>
