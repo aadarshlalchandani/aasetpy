@@ -1,7 +1,7 @@
 <!-- Modify **`README.md`** as per your project -->
 <!-- credits: aadarshlalchandani/aasetpy -->
 
-# python-project
+# your_project_name
 
 ## Setup the Virtual Environment
 
