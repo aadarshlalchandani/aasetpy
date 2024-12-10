@@ -27,7 +27,7 @@ if [ $PROGRAM = $TEST_ARG ]; then
 elif [ $PROGRAM = $LINT_ARG ]; then
     $PROGRAM $PROGRAM_ARG >>$logs 2>&1
 else
-    python -u $PROGRAM.py $PROGRAM_ARG >>$logs 2>&1
+    python -u $PROGRAM.py ${@:2} >>$logs 2>&1
 fi
 
 end_time=$(date +%s)
