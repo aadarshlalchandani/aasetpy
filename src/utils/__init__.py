@@ -3,9 +3,9 @@
 
 import os
 import time
-import psutil
-
 from functools import wraps
+
+import psutil
 from dotenv import load_dotenv
 
 load_dotenv(override=True)
