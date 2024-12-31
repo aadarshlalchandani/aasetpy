@@ -1,9 +1,7 @@
 ## Modify 'src/utils' as per your project
 ## credits: aadarshlalchandani/aasetpy
 
-from . import wraps
-from . import time
-from . import psutil
+from . import psutil, time, wraps
 
 
 def time_spent(func):
