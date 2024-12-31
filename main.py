@@ -1,5 +1,5 @@
-from src.utils.annotations import resource_usage
 from src.utils import AUTH_TOKEN
+from src.utils.annotations import resource_usage
 
 
 @resource_usage
