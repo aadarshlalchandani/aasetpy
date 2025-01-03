@@ -7,4 +7,4 @@ services:
     env_file:
       - .env
     volumes:
-    - ./logs:/logs
+    - ./logs:/your_project_name/logs
