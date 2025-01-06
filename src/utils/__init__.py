@@ -10,4 +10,6 @@ from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
-AUTH_TOKEN = os.getenv("AUTH_TOKEN")
+get_credentials = lambda key: os.environ.get(key)
+
+AUTH_TOKEN = get_credentials("AUTH_TOKEN")
