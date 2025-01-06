@@ -6,5 +6,3 @@ requests
 psutil
 python-dotenv
 pydantic
-
-## add more dependencies here...
