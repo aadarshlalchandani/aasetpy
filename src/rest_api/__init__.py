@@ -4,7 +4,7 @@
 import uvicorn
 from fastapi import Depends, FastAPI, HTTPException
 
-from ..utils import (
+from src.utils import (
     SPLIT_DELIMITER,
     BaseModel,
     List,
