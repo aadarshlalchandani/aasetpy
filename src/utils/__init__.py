@@ -3,13 +3,18 @@
 
 import os
 import time
+import typing as t
 from functools import wraps
+from typing import List, Optional, Union
 
 import psutil
 from dotenv import load_dotenv
+from pydantic import BaseModel
 
 load_dotenv(override=True)
 
-get_credentials = lambda key: os.environ.get(key)
+SPLIT_DELIMITER = ","
 
-AUTH_TOKEN = get_credentials("AUTH_TOKEN")
+
+def get_credentials(key: str):
+    return os.environ.get(key)
