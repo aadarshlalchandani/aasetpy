@@ -8,13 +8,13 @@ from src.utils import (
     SPLIT_DELIMITER,
     BaseModel,
     List,
-    get_credentials,
+    env,
 )
 
 template_credits = "aadarshlalchandani/aasetpy"
 
-API_HOST = get_credentials("API_HOST")
-API_PORT = int(get_credentials("API_PORT"))
+API_HOST = env.API_HOST
+API_PORT = int(env.API_PORT)
 API_TITLE = f"REST API Template by {template_credits}"
 
 api_tags_metadata = [
