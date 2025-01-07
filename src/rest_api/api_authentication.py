@@ -11,11 +11,11 @@ from src.rest_api import (
     Depends,
     FastAPI,
     HTTPException,
-    get_credentials,
+    env,
 )
 from src.utils import t
 
-API_AUTH_TOKENS = get_credentials("API_AUTH_TOKEN").split(SPLIT_DELIMITER)
+API_AUTH_TOKENS = env.API_AUTH_TOKEN.split(SPLIT_DELIMITER)
 known_tokens = set(API_AUTH_TOKENS)
 get_bearer_token = HTTPBearer(auto_error=False)
 
@@ -36,9 +36,9 @@ def get_token(
 
 
 def add_cors(app: FastAPI):
-    allowed_origins = get_credentials("API_ALLOWED_ORIGINS").split(SPLIT_DELIMITER)
-    allowed_methods = get_credentials("API_ALLOWED_METHODS").split(SPLIT_DELIMITER)
-    allowed_headers = get_credentials("API_ALLOWED_HEADERS").split(SPLIT_DELIMITER)
+    allowed_origins = env.API_ALLOWED_ORIGINS.split(SPLIT_DELIMITER)
+    allowed_methods = env.API_ALLOWED_METHODS.split(SPLIT_DELIMITER)
+    allowed_headers = env.API_ALLOWED_HEADERS.split(SPLIT_DELIMITER)
     allow_credentials = True
 
     app.add_middleware(
