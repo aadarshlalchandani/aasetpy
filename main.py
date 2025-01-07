@@ -1,4 +1,4 @@
-from src.utils import AUTH_TOKEN
+from src.utils import env
 from src.utils.annotations import resource_usage
 
 
@@ -13,7 +13,7 @@ def get_factorial(n: int, auth_token: str):
         raise ValueError("n must be a non-negative integer")
 
     elif n == 0 or n == 1:
-        if auth_token == AUTH_TOKEN:
+        if auth_token == env.AUTH_TOKEN:
             print("AUTH_TOKEN Verified!")
 
         else:
