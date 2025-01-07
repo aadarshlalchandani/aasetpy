@@ -8,13 +8,24 @@ from functools import wraps
 from typing import List, Optional, Union
 
 import psutil
-from dotenv import load_dotenv
 from pydantic import BaseModel
+from pydantic_settings import BaseSettings
 
-load_dotenv(override=True)
+
+class Settings(BaseSettings):
+    class Config:
+        env_file = ".env"
+        extra = "allow"
+
+
+settings = Settings()
 
 SPLIT_DELIMITER = ","
 
 
-def get_credentials(key: str):
-    return os.environ.get(key)
+class EnvironmentVariables:
+    def __getattr__(self, env_var_name):
+        return getattr(settings, env_var_name.lower(), None)
+
+
+env = EnvironmentVariables()
