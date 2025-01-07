@@ -1,30 +1,44 @@
-from src.utils import env
-from src.utils.annotations import resource_usage
+#!/bin/bash
 
+## credits: aadarshlalchandani/aasetpy
 
-@resource_usage
-def main():
-    return get_factorial(n=5, auth_token="token")
+start_time=$(date +%s)
 
+## activate the virtual environment
+. env/bin/activate
 
-def get_factorial(n: int, auth_token: str):
+PROGRAM=$1
+TEST_ARG=pytest
+LINT_ARG=pylint
+PROGRAM_ARG=$2
+logs_dirname=logs
+logs="$logs_dirname"/"$PROGRAM"_logs.log
+: >$logs
+line="\n\n"
+current_date_time=$(date "+%Y-%m-%d %H:%M:%S")
 
-    if n < 0:
-        raise ValueError("n must be a non-negative integer")
+echo "Started..."
+echo "Storing real-time logs in "$logs""
+echo "[ $current_date_time ] PROGRAM: '$PROGRAM ${@:2}'"
+echo "[ $current_date_time ] PROGRAM: '$PROGRAM ${@:2}'" >>$logs 2>&1
+echo -en "\n" >>$logs 2>&1
 
-    elif n == 0 or n == 1:
-        if auth_token == env.AUTH_TOKEN:
-            print("AUTH_TOKEN Verified!")
+if [ $PROGRAM = $TEST_ARG ]; then
+    coverage run -m $PROGRAM $PROGRAM_ARG >>$logs 2>&1
+    coverage html -d pytest_report
+elif [ $PROGRAM = $LINT_ARG ]; then
+    $PROGRAM $PROGRAM_ARG >>$logs 2>&1
+else
+    python -u $PROGRAM.py ${@:2} >>$logs 2>&1
+fi
 
-        else:
-            print("Wrong AUTH_TOKEN Entered..")
+end_time=$(date +%s)
+total_time=$(($end_time - $start_time))
 
-        return 1
+echo -en "\nTotal Time taken: $total_time seconds\n" >>$logs 2>&1
+echo "[ $current_date_time ] $PROGRAM ${@:2}: Execution Completed." >>$logs 2>&1
 
-    else:
-        return n * get_factorial(n - 1, auth_token=auth_token)
+echo -en $line >>$logs 2>&1
 
-
-if __name__ == "__main__":
-    result = main()
-    print(f"RESULT: {result}")
+echo "'$PROGRAM ${@:2}'" was executed within $total_time seconds.
+echo
