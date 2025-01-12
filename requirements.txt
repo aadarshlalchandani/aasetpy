@@ -4,6 +4,5 @@ pytest
 pylint
 requests
 psutil
-python-dotenv
 pydantic
 pydantic-settings
