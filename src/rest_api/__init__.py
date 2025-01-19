@@ -8,8 +8,8 @@ from src.utils import (
     SPLIT_DELIMITER,
     BaseModel,
     List,
-    env,
 )
+from src.utils.environment_variables import env
 
 template_credits = "aadarshlalchandani/aasetpy"
 
