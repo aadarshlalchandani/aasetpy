@@ -1,4 +1,5 @@
-## general python files and directories to be ignored in git
+## Modify '.gitignore' as per your project
+## credits: aadarshlalchandani/aasetpy
 env/
 venv/
 *.log
@@ -8,5 +9,3 @@ __pycache__/
 .venv
 .vscode
 test.py
-
-## add more keywords to ignore...
