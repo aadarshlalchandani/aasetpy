@@ -10,3 +10,5 @@ from typing import List, Optional, Union
 import psutil
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings
+
+SPLIT_DELIMITER = ","
