@@ -1,3 +1,6 @@
+## Modify 'main.py' as per your project
+## credits: aadarshlalchandani/aasetpy
+
 from src.utils.annotations import resource_usage
 from src.utils.environment_variables import env
 
