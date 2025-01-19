@@ -10,7 +10,7 @@ start_time=$(date +%s)
 PROGRAM=$1
 TEST_ARG=pytest
 LINT_ARG=pylint
-PROGRAM_ARGS=$(echo "$2" | sed 's/= / /g')
+PROGRAM_ARG=$(echo "$2" | sed 's/= / /g')
 logs_dirname=logs
 logs="$logs_dirname"/"$PROGRAM"_logs.log
 : >$logs
