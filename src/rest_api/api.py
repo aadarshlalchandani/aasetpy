@@ -57,6 +57,6 @@ def sign_up(user: SampleUser, no_expire: bool = False):
     raise HTTPException(status_code=401, detail="Invalid credentials")
 
 
-@app.post("/bearer_auth", tags=["basic auth"])
+@app.post("/bearer_auth", tags=["bearer auth"])
 async def bearer_auth(user: SampleUser = Depends(jwt.verify_token)):
     return SampleResult(result=[user])
