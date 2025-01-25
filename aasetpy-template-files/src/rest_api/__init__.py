@@ -37,7 +37,7 @@ api_tags_metadata = [
 ]
 
 
-sample_users_db = {"testuser": "testpassword"}
+sample_users_db = {}
 
 
 class SampleUser(BaseModel):

@@ -16,6 +16,8 @@ from src.rest_api.api_security import (
     BasicAuthentication,
     BearerAuthentication,
     add_cors,
+    generate_bcrypt_hash,
+    verify_bcrypt_hash,
 )
 from src.utils.annotations import time_spent
 
@@ -44,9 +46,11 @@ def protected_route(username: str = Depends(basic_auth.authenticate)):
 
 @app.post("/sign_up", tags=["signup to get JWT"])
 def sign_up(user: SampleUser, no_expire: bool = False):
-    if (
-        user.username in sample_users_db
-        and sample_users_db[user.username] == user.password
+    if user.username not in sample_users_db:
+        sample_users_db[user.username] = generate_bcrypt_hash(user.password)
+
+    if user.username in sample_users_db and verify_bcrypt_hash(
+        password=user.password, hashed_password=sample_users_db[user.username]
     ):
         access_token = jwt.create_access_token(
             data=user.model_dump(),
@@ -54,7 +58,8 @@ def sign_up(user: SampleUser, no_expire: bool = False):
         )
         return {"access_token": access_token, "token_type": "bearer"}
 
-    raise HTTPException(status_code=401, detail="Invalid credentials")
+    else:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
 
 
 @app.post("/bearer_auth", tags=["bearer auth"])

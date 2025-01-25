@@ -14,6 +14,7 @@ import psutil
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings
 
+ENCODE_ALGO = "utf8"
 SPLIT_DELIMITER = ","
 
 

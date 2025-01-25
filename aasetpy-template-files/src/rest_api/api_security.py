@@ -3,6 +3,7 @@
 
 import secrets
 
+import bcrypt
 import jwt
 from fastapi.security import (
     HTTPAuthorizationCredentials,
@@ -12,11 +13,24 @@ from fastapi.security import (
 )
 
 from src.rest_api import Depends, FastAPI, HTTPException, status
-from src.utils import datetime, dtime, text_splitter, timedelta
+from src.utils import ENCODE_ALGO, datetime, dtime, text_splitter, timedelta
 from src.utils.environment_variables import env
 
 basic_auth = HTTPBasic()
 bearer_auth = HTTPBearer()
+
+
+def generate_bcrypt_hash(password: str, rounds: int = 12) -> str:
+    password_bytes = password.encode(ENCODE_ALGO)
+    salt = bcrypt.gensalt(rounds=rounds)
+    hashed = bcrypt.hashpw(password_bytes, salt)
+    return hashed.decode(ENCODE_ALGO)
+
+
+def verify_bcrypt_hash(password: str, hashed_password: str) -> bool:
+    password_bytes = password.encode(ENCODE_ALGO)
+    hashed_bytes = hashed_password.encode(ENCODE_ALGO)
+    return bcrypt.checkpw(password_bytes, hashed_bytes)
 
 
 def add_cors(app: FastAPI):
@@ -40,17 +54,16 @@ def add_cors(app: FastAPI):
 class BasicAuthentication:
     def __init__(self):
         self.correct_username = env.API_BASIC_AUTH_USERNAME
-        self.correct_password = env.API_BASIC_AUTH_PASSWORD
-        self.encode_algo = "utf8"
+        self.correct_password = generate_bcrypt_hash(env.API_BASIC_AUTH_PASSWORD)
 
     def authenticate(self, credentials: HTTPBasicCredentials = Depends(basic_auth)):
         is_correct_username = secrets.compare_digest(
-            credentials.username.encode(self.encode_algo),
-            self.correct_username.encode(self.encode_algo),
+            credentials.username.encode(ENCODE_ALGO),
+            self.correct_username.encode(ENCODE_ALGO),
         )
-        is_correct_password = secrets.compare_digest(
-            credentials.password.encode(self.encode_algo),
-            self.correct_password.encode(self.encode_algo),
+        is_correct_password = verify_bcrypt_hash(
+            credentials.password,
+            self.correct_password,
         )
 
         if not (is_correct_username and is_correct_password):
