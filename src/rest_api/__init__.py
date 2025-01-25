@@ -2,7 +2,7 @@
 ## credits: aadarshlalchandani/aasetpy
 
 import uvicorn
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, status
 
 from src.utils import (
     SPLIT_DELIMITER,
@@ -15,7 +15,7 @@ template_credits = "aadarshlalchandani/aasetpy"
 
 API_HOST = env.API_HOST
 API_PORT = int(env.API_PORT)
-API_TITLE = f"REST API Template by {template_credits}"
+API_TITLE = f"REST API Template by '{template_credits}'"
 
 api_tags_metadata = [
     {
@@ -23,14 +23,26 @@ api_tags_metadata = [
         "description": f"Home Page of the Sample REST API by '{template_credits}'",
     },
     {
-        "name": "sample result",
-        "description": "Sample Response with Bearer Token Authentication",
+        "name": "basic auth",
+        "description": "Basic Authentication for REST API",
+    },
+    {
+        "name": "signup to get JWT",
+        "description": "SignUp Endpoint to generate JWT for given User",
+    },
+    {
+        "name": "bearer auth",
+        "description": "Sample Response for the User inside JWT",
     },
 ]
 
 
-class SampleRequest(BaseModel):
-    param: str = template_credits
+sample_users_db = {"testuser": "testpassword"}
+
+
+class SampleUser(BaseModel):
+    username: str = "testuser"
+    password: str = "testpassword"
 
 
 class SampleResult(BaseModel):
