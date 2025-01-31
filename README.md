@@ -6,6 +6,49 @@
 ![aasetpy downloads](https://img.shields.io/github/downloads/aadarshlalchandani/aasetpy/total?color=success&label=Downloads)
 ![License](https://img.shields.io/badge/License-GNU%20GPL%203.0-orange.svg)
 
+## `aasetpy` will create:
+- Virtual Environment (`env/`)
+- `.env` file to store environment variables
+- Directory to store Execution Logs (`logs/`)
+- Python Project Skeleton (`src/`)
+- `utils/` module in `src/`
+  > The `utils` module has annotations and environment variables ready to use
+- `requirements.txt` with basic lightweight contents
+  - ```txt
+    coverage
+    pytest
+    pylint
+    requests
+    psutil
+    pydantic
+    pydantic-settings
+    ```
+- `.gitignore` with necessary contents
+  - ```ini
+    env/
+    venv/
+    *.log
+    *.out
+    __pycache__/
+    .env
+    .venv
+    .vscode
+    test.py
+    ```
+- `Dockerfile` as basic containerization of the project
+- `docker.compose.yml` to build and run the docker project
+- `README.md` with the base instructions
+- `main.py` with basic implementation and usage of the src modules
+- `run.sh` to run your files in the parent directory
+  > `run.sh`will activate the virtual environment and run the program, storing the execution logs to the specified path
+- If used with the `api` flag, it will create the following files:
+  - `rest_api` module
+  - `api.py` file in parent directory to run the uvicorn server
+  - api security file
+  - api logging file
+  - update the `.env` file as per API variables
+- Lastly, it removes nested `__pycache__` directories from the  project.
+- [This script](https://gist.github.com/aadarshlalchandani/b737e77a480a70a4755267dd81f82a68#file-setup-sh) is run into your project directory upon running `aasetpy`
 
 ## Single command setup in Ubuntu
 
