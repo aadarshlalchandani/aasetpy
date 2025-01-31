@@ -7,7 +7,7 @@
 
 Open terminal in `your_project_name` directory
 
-You can run this command by following instructions [here](https://gist.github.com/aadarshlalchandani/b737e77a480a70a4755267dd81f82a68?permalink_comment_id=5315260#gistcomment-5315260).
+You can run this command by following instructions [here](https://github.com/aadarshlalchandani/aasetpy).
 
 ```bash
 aasetpy
