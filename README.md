@@ -53,6 +53,8 @@
 
 ## Single command setup in Ubuntu
 
+> This setup requires to be run with `sudo` as it makes changes to the `/etc/bash.bashrc` file.
+
 ```bash
 wget https://github.com/aadarshlalchandani/aasetpy/releases/download/v0.1.3/aasetpy.deb  >/dev/null 2>&1 && sudo apt install ./aasetpy.deb && rm aasetpy.deb
 ```
