@@ -1,8 +1,13 @@
 <a href="https://www.buymeacoffee.com/aadarshlalchandani"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=aadarshlalchandani&button_colour=5F7FFF&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00" /></a>
 
-# Setting up `aasetpy` in ubuntu
+# `aasetpy`
 
-## Single command setup
+![aasetpy release (latest by date)](https://img.shields.io/github/v/release/aadarshlalchandani/aasetpy?style=flat-square&color=blue&label=Release)
+![aasetpy downloads](https://img.shields.io/github/downloads/aadarshlalchandani/aasetpy/total?color=success&label=Downloads)
+![aasetpy License](https://img.shields.io/github/license/aadarshlalchandani/aasetpy?color=orange&label=License)
+
+
+## Single command setup in Ubuntu
 
 ```bash
 wget https://github.com/aadarshlalchandani/aasetpy/releases/download/v0.1.3/aasetpy.deb  >/dev/null 2>&1 && sudo apt install ./aasetpy.deb && rm aasetpy.deb
