@@ -4,7 +4,7 @@
 
 ![aasetpy release (latest by date)](https://img.shields.io/github/v/release/aadarshlalchandani/aasetpy?style=flat-square&color=blue&label=Release)
 ![aasetpy downloads](https://img.shields.io/github/downloads/aadarshlalchandani/aasetpy/total?color=success&label=Downloads)
-![aasetpy License](https://img.shields.io/github/license/aadarshlalchandani/aasetpy?color=orange&label=License)
+![License](https://img.shields.io/badge/License-GNU%20GPL%203.0-orange.svg)
 
 
 ## Single command setup in Ubuntu
