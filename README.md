@@ -47,7 +47,7 @@
   - api security file
   - api logging file
   - update the `.env` file as per API variables
-- Lastly, it removes nested `__pycache__` directories from the  project.
+- Lastly, it removes nested `__pycache__` directories from the project.
 - [This script](https://gist.github.com/aadarshlalchandani/b737e77a480a70a4755267dd81f82a68#file-setup-sh) is run into your project directory upon running `aasetpy`
 - You can take a look  the files to be created [here](https://github.com/aadarshlalchandani/aasetpy/tree/main/aasetpy-template-files)
 
