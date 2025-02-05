@@ -8,7 +8,7 @@ import typing as t
 from datetime import datetime as dtime
 from datetime import timedelta
 from functools import lru_cache, wraps
-from typing import List, Optional, Union
+from typing import List, Optional, Union, Dict
 
 import psutil
 from pydantic import BaseModel
