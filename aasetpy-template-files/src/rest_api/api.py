@@ -1,11 +1,16 @@
 ## Modify 'src/rest_api' as per your project
 ## credits: aadarshlalchandani/aasetpy
 
-
+from src.limits.rate_limits import (
+    add_rate_limits,
+    limiter,  ## Add `request: Request = None` argument to the endpoint where you want apply rate limiting using this limiter
+    rate_limit_string,
+)
 from src.rest_api import (
     API_TITLE,
     Depends,
     FastAPI,
+    Request,
     HTTPException,
     SampleResult,
     SampleUser,
@@ -23,6 +28,7 @@ from src.utils.annotations import time_spent
 
 app = FastAPI(title=API_TITLE, openapi_tags=api_tags_metadata)
 app = add_cors(app=app)
+app = add_rate_limits(app=app)
 
 jwt = BearerAuthentication()
 basic_auth = BasicAuthentication()
@@ -30,7 +36,8 @@ basic_auth = BasicAuthentication()
 
 @time_spent
 @app.get("/", tags=["root"])
-def read_root():
+@limiter.limit(rate_limit_string)
+def read_root(request: Request = None):
     return API_TITLE
 
 
@@ -63,5 +70,6 @@ def sign_up(user: SampleUser, no_expire: bool = False):
 
 
 @app.post("/bearer_auth", tags=["bearer auth"])
-async def bearer_auth(user: SampleUser = Depends(jwt.verify_token)):
+@limiter.limit(rate_limit_string)
+async def bearer_auth(user: SampleUser = Depends(jwt.verify_token),request: Request = None):
     return SampleResult(result=[user])

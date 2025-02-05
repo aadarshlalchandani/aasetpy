@@ -2,7 +2,7 @@
 ## credits: aadarshlalchandani/aasetpy
 
 import uvicorn
-from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi import Depends, FastAPI, HTTPException, status, Request
 
 from src.utils import (
     SPLIT_DELIMITER,
