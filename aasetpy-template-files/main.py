@@ -7,7 +7,7 @@ from src.utils.environment_variables import env
 
 @resource_usage
 def main():
-    return get_factorial(n=5, auth_token="token")
+    return get_factorial(n=5, auth_token=env("AUTH_TOKEN","token"))
 
 
 def get_factorial(n: int, auth_token: str):
