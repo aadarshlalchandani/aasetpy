@@ -10,8 +10,8 @@ from src.rest_api import (
     API_TITLE,
     Depends,
     FastAPI,
-    Request,
     HTTPException,
+    Request,
     SampleResult,
     SampleUser,
     api_tags_metadata,
@@ -71,5 +71,8 @@ def sign_up(user: SampleUser, no_expire: bool = False):
 
 @app.post("/bearer_auth", tags=["bearer auth"])
 @limiter.limit(rate_limit_string)
-async def bearer_auth(user: SampleUser = Depends(jwt.verify_token),request: Request = None):
+async def bearer_auth(
+    user: SampleUser = Depends(jwt.verify_token),
+    request: Request = None,
+):
     return SampleResult(result=[user])
