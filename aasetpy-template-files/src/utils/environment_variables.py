@@ -9,8 +9,6 @@ class ENVSettings(BaseSettings):
 
 env_settings = ENVSettings()
 
-SPLIT_DELIMITER = ","
-
 
 class EnvironmentVariables:
     @lru_cache
