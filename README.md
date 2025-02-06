@@ -122,7 +122,8 @@ aasetpy reset
 aasetpy reset api
 aasetpy reset api caching
 ```
-> `caching` flag will only work in presence of `api` flag for obvious reasons.
+> `caching` flag, during initial setup (in presence of `reset` flag), will only work in presence of `api` flag for obvious reasons.  
+> You can call `aasetpy caching` without `api` once you have `rest_api` module in `src/`
 
 # Remove `aasetpy` from ubuntu
 
