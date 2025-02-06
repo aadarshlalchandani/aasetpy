@@ -1,4 +1,4 @@
-<a href="https://www.buymeacoffee.com/aadarshlalchandani"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=aadarshlalchandani&button_colour=5F7FFF&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00" /></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.producthunt.com/posts/aasetpy?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-aasetpy" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=851410&theme=light&t=1738821284921" alt="aasetpy - Python&#0032;Project&#0032;Kickstarter&#0032;Template&#0046; | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+<a href="https://www.buymeacoffee.com/aadarshlalchandani"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=aadarshlalchandani&button_colour=5F7FFF&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00" /></a>
 
 # `aasetpy`
 
@@ -42,12 +42,17 @@
 - `run.sh` to run your files in the parent directory
   > `run.sh`will activate the virtual environment and run the program, storing the execution logs to the specified path
 - If used with the `api` flag, it will create the following files:
-  - `limits` module
   - `rest_api` module
+  - `limits` module for rate limiting
   - `api.py` file in parent directory to run the uvicorn server
   - api security file
   - api logging file
   - update the `.env` file as per API variables
+- If used with the `caching` flag, it will create the following files:
+  - `server_cache` module
+  - `redis` module
+  - `src/rest_api/api.py` gets updated with caching on endpoints as an example
+  - update the `.env` file as per Caching variables
 - Lastly, it removes nested `__pycache__` directories from the project.
 - [This script](https://gist.github.com/aadarshlalchandani/b737e77a480a70a4755267dd81f82a68#file-setup-sh) is run into your project directory upon running `aasetpy`
 - You can take a look  the files to be created [here](https://github.com/aadarshlalchandani/aasetpy/tree/main/aasetpy-template-files)
