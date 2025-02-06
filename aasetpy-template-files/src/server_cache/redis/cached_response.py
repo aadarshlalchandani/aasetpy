@@ -3,7 +3,8 @@
 
 from src.server_cache import (
     DEFAULT_CACHE_EXPIRE_SECONDS,
-    asyncio,
+    BaseModel,
+    Request,
     iscoroutinefunction,
     json,
     signature,
@@ -12,46 +13,58 @@ from src.server_cache import (
 from src.server_cache.redis import get_redis_client
 
 
-def cache_response(expire: int = DEFAULT_CACHE_EXPIRE_SECONDS):
+def cache_response(
+    expire: int = DEFAULT_CACHE_EXPIRE_SECONDS,
+    drop_keys: list = ["token", "request"],
+):
     redis_client = get_redis_client()
 
     def decorator(func):
         @wraps(func)
-        def wrapper(*args, **kwargs):
+        async def wrapper(*args, **kwargs):
             params = signature(func).parameters
 
             param_dict = {}
+            request = None
             for i, (name, param) in enumerate(params.items()):
                 if i < len(args):
-                    param_dict[name] = args[i]
+                    if isinstance(args[i], Request):
+                        request = args[i]
+                    elif isinstance(args[i], BaseModel):
+                        param_dict[name] = args[i].dict()
+                    else:
+                        param_dict[name] = args[i]
                 elif name in kwargs:
-                    param_dict[name] = kwargs[name]
+                    if isinstance(kwargs[name], BaseModel):
+                        param_dict[name] = kwargs[name].dict()
+                    else:
+                        param_dict[name] = kwargs[name]
                 elif param.default is not param.empty:
                     param_dict[name] = param.default
-            param_dict.pop("request", None)
 
-            cache_key = f"{func.__name__}:{json.dumps(param_dict, sort_keys=True)}"
+            [param_dict.pop(key) for key in drop_keys if key in param_dict]
+
+            if request and request.method == "POST":
+                body = request.json()
+                param_dict.update(body)
+
+            if iscoroutinefunction(func):
+                response = await func(*args, **kwargs)
+            else:
+                response = func(*args, **kwargs)
+
+            cache_key = (
+                f"{func.__name__}:{json.dumps(param_dict, sort_keys=True, default=str)}"
+            )
 
             cached_response = redis_client.get(cache_key)
             if cached_response:
+                print("CACHE HIT!")
                 return json.loads(cached_response)
 
-            response = func(*args, **kwargs)
-
-            if asyncio.iscoroutine(response):
-                response = asyncio.get_event_loop().run_until_complete(response)
-
-            redis_client.setex(cache_key, expire, json.dumps(response))
+            redis_client.setex(cache_key, expire, json.dumps(response, default=str))
 
             return response
-
-        if iscoroutinefunction(func):
-
-            @wraps(func)
-            async def async_wrapper(*args, **kwargs):
-                return await asyncio.to_thread(wrapper, *args, **kwargs)
-
-            return async_wrapper
 
         return wrapper
 

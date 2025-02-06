@@ -44,7 +44,11 @@ def read_root(request: Request = None):
 
 @app.get("/basic_auth", tags=["basic auth"])
 @cache_response(expire=5)
-def protected_route(username: str = Depends(basic_auth.authenticate)):
+@limiter.limit(rate_limit_string)
+def protected_route(
+    username: str = Depends(basic_auth.authenticate),
+    request: Request = None,
+):
     response = {
         "message": f"Hello, {username}! This is a protected route.",
         "verified": True,
@@ -75,7 +79,8 @@ def sign_up(user: SampleUser, no_expire: bool = False):
 @cache_response(expire=10)
 @limiter.limit(rate_limit_string)
 async def bearer_auth(
-    user: SampleUser = Depends(jwt.verify_token),
+    user: SampleUser,
+    token: str = Depends(jwt.verify_token),
     request: Request = None,
 ):
     return SampleResult(result=[user])
