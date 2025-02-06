@@ -104,6 +104,7 @@ aasetpy
 
 ```bash
 aasetpy api
+aasetpy api caching
 ```
 
 #### Reset your Python Project
@@ -111,6 +112,7 @@ aasetpy api
 ```bash
 aaresetpy
 aaresetpy api
+aaresetpy api caching
 ```
 
 OR
@@ -118,7 +120,9 @@ OR
 ```bash
 aasetpy reset
 aasetpy reset api
+aasetpy reset api caching
 ```
+> `caching` flag will only work in presence of `api` flag for obvious reasons.
 
 # Remove `aasetpy` from ubuntu
 
