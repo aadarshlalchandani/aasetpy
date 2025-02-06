@@ -104,6 +104,7 @@ aasetpy
 
 ```bash
 aasetpy api
+aasetpy caching
 aasetpy api caching
 ```
 
