@@ -48,11 +48,6 @@ def cache_response(
                 body = request.json()
                 param_dict.update(body)
 
-            if iscoroutinefunction(func):
-                response = await func(*args, **kwargs)
-            else:
-                response = func(*args, **kwargs)
-
             cache_key = (
                 f"{func.__name__}:{json.dumps(param_dict, sort_keys=True, default=str)}"
             )
@@ -61,6 +56,11 @@ def cache_response(
             if cached_response:
                 print("CACHE HIT!")
                 return json.loads(cached_response)
+
+            if iscoroutinefunction(func):
+                response = await func(*args, **kwargs)
+            else:
+                response = func(*args, **kwargs)
 
             redis_client.setex(cache_key, expire, json.dumps(response, default=str))
 
