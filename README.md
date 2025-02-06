@@ -1,4 +1,4 @@
-<a href="https://www.buymeacoffee.com/aadarshlalchandani"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=aadarshlalchandani&button_colour=5F7FFF&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00" /></a>
+<a href="https://www.buymeacoffee.com/aadarshlalchandani"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=☕&slug=aadarshlalchandani&button_colour=5F7FFF&font_colour=ffffff&font_family=Cookie&outline_colour=000000&coffee_colour=FFDD00" /></a>&nbsp;&nbsp;&nbsp;<a href="https://www.producthunt.com/posts/aasetpy?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-aasetpy" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=851410&theme=light&t=1738843824699" alt="aasetpy - Python&#0032;Project&#0032;Kickstarter&#0032;Template | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 
 # `aasetpy`
 
