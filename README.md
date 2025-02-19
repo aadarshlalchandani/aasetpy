@@ -7,6 +7,7 @@
 ![License](https://img.shields.io/badge/License-GNU%20GPL%203.0-orange.svg)
 
 ## `aasetpy` will create:
+
 - Virtual Environment (`env/`)
 - `.env` file to store environment variables
 - Directory to store Execution Logs (`logs/`)
@@ -14,6 +15,7 @@
 - `utils/` module in `src/`
   > The `utils` module has annotations and environment variables ready to use
 - `requirements.txt` with basic lightweight contents
+  
   - ```txt
     coverage
     pytest
@@ -23,7 +25,9 @@
     pydantic
     pydantic-settings
     ```
+
 - `.gitignore` with necessary contents
+
   - ```ini
     env/
     venv/
@@ -35,12 +39,14 @@
     .vscode
     test.py
     ```
+
 - `Dockerfile` as basic containerization of the project
 - `docker.compose.yml` to build and run the docker project
 - `README.md` with the base instructions
 - `main.py` with basic implementation and usage of the src modules
-- `run.sh` to run your files in the parent directory
-  > `run.sh`will activate the virtual environment and run the program, storing the execution logs to the specified path
+- `setup.sh` to setup your files in the root directory
+- `run.sh` to run your files in the root directory
+  > `run.sh` will activate the virtual environment and run the program, storing the execution logs to the specified path
 - If used with the `api` flag, it will create the following files:
   - `rest_api` module
   - `limits` module for rate limiting
@@ -89,6 +95,7 @@ alias aaresetpy='rm -rf ~/.wget-hsts && wget -q -O - https://gist.github.com/aad
 ```
 
 ### Reopen the terminal
+
 Your commands are now ready to be used!
 
 </details>
@@ -124,6 +131,7 @@ aasetpy reset
 aasetpy reset api
 aasetpy reset api caching
 ```
+
 > `caching` flag, during initial setup (in presence of `reset` flag), will only work in presence of `api` flag for obvious reasons.  
 > You can call `aasetpy caching` without `api` once you have `rest_api` module in `src/`
 
