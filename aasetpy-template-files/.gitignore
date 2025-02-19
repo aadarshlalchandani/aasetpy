@@ -8,4 +8,4 @@ __pycache__/
 .env
 .venv
 .vscode
-test.py
+test*.py
