@@ -20,6 +20,12 @@ def cache_response(
     """### Usage:
 
     ```
+    @cache_response()  
+    def func():  
+        return None
+    ```
+    #### ~ OR ~
+    ```
     @cache_response(expire=600)  
     def func():  
         return None
