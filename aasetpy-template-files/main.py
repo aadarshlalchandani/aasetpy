@@ -1,15 +1,17 @@
 ## Modify 'main.py' as per your project
 ## credits: aadarshlalchandani/aasetpy
 
-from src.utils.annotations import resource_usage
+from src.utils import lru_cache, time
+from src.utils.annotations import monitor_usage
 from src.utils.environment_variables import env
 
 
-@resource_usage
+@monitor_usage
 def main():
-    return get_factorial(n=5, auth_token=env("AUTH_TOKEN","token"))
+    return get_factorial(n=5, auth_token=env("AUTH_TOKEN", "token"))
 
 
+@lru_cache
 def get_factorial(n: int, auth_token: str):
 
     if n < 0:
