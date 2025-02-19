@@ -2,6 +2,7 @@
 ## credits: aadarshlalchandani/aasetpy
 env/
 venv/
+data/
 *.log
 *.out
 __pycache__/
