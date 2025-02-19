@@ -89,6 +89,7 @@ for arg in "$@"; do
             add_to_file "CACHE_PORT=6379" "$dotenv_filename"
             add_to_file "CACHE_DB=0" "$dotenv_filename"
             add_to_file "CACHE_MAX_CONNECTIONS=10" "$dotenv_filename"
+            add_to_file "CACHE_MAXSIZE=500" "$dotenv_filename"
             add_to_file "DEFAULT_CACHE_EXPIRE_SECONDS=86400" "$dotenv_filename"
         fi
     fi
