@@ -52,6 +52,7 @@
   - `server_cache` module
   - `redis` module
   - `src/rest_api/api.py` gets updated with caching on endpoints as an example
+  - `local_cache` module decorator similar to that of `redis` module
   - update the `.env` file as per Caching variables
 - Lastly, it removes nested `__pycache__` directories from the project.
 - [This script](https://gist.github.com/aadarshlalchandani/b737e77a480a70a4755267dd81f82a68#file-setup-sh) is run into your project directory upon running `aasetpy`

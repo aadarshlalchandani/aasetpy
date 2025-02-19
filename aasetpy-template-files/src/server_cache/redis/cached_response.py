@@ -17,6 +17,14 @@ def cache_response(
     expire: int = DEFAULT_CACHE_EXPIRE_SECONDS,
     drop_keys: list = ["token", "request"],
 ):
+    """### Usage:
+
+    ```
+    @cache_response(expire=600)  
+    def func():  
+        return None
+    ```
+    """
     redis_client = get_redis_client()
 
     def decorator(func):
