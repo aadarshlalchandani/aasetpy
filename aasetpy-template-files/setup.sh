@@ -44,11 +44,11 @@ api_arg=api
 caching_arg=caching
 
 if [[ "$@" =~ "$reset_arg" ]]; then
-    remover "$virtual_env_name"
     remover "$dotenv_filename"
 fi
 
 ## create fresh virtual environment
+remover "$virtual_env_name"
 python -m venv $virtual_env_name
 . $virtual_env_name/bin/activate
 remover "$(python -m pip cache dir)/selfcheck"
