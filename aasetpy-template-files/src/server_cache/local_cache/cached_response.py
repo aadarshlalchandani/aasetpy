@@ -63,7 +63,7 @@ def cache_response(func):
 
     ```
     @cache_response
-    def func():  
+    def func():
         return None
     ```
     """
