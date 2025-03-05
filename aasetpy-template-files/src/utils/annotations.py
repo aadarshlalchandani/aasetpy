@@ -11,7 +11,6 @@ def get_file_path(filename):
 def get_program_pid(script_path: str, filename: str):
     process_entities = ["pid", "name", "cmdline"]
     processes = psutil.process_iter(process_entities)
-    # print([i.info for i in processes])
     program_pid = [
         process.info["pid"]
         for process in processes
