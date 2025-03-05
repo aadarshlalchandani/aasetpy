@@ -15,7 +15,7 @@ from functools import lru_cache, wraps
 from typing import Any, Dict, List, Optional, Union
 
 import psutil
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from pydantic_settings import BaseSettings
 
 ENCODE_ALGO = "utf8"
