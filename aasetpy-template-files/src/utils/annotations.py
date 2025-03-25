@@ -1,7 +1,7 @@
 ## Modify 'src/utils' as per your project
 ## credits: aadarshlalchandani/aasetpy
 
-from src.utils import inspect, os, psutil, threading, time, wraps
+from src.utils import inspect, json, os, psutil, threading, time, wraps
 
 
 def get_file_path(filename):
@@ -87,7 +87,9 @@ def monitor_usage(func):
                 cpu_usage=cpu_usage,
                 ram_usage=ram_usage,
             )
-            print(usage_results)
+            print()
+            print("***Usage Stats***")
+            print(json.dumps(usage_results, indent=4))
 
         return result
 
