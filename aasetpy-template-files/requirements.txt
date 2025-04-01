@@ -4,5 +4,6 @@ pytest
 pylint
 requests
 psutil
+nvidia-ml-py3
 pydantic
 pydantic-settings
