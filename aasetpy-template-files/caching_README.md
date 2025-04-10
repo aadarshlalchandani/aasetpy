@@ -7,17 +7,20 @@
 
 Open terminal in `your_project_name` directory
 
-You can run this command by following instructions [here](https://github.com/aadarshlalchandani/aasetpy).
+Project Setup Command:
 
 ```bash
-aasetpy
+./setup.sh
 ```
+
+Supported Flags: `reset`, `caching`
 
 ## Run your python scripts
 
 ```bash
-./run.sh python_filename
+./run.sh python_filename arguments
 ```
+
 The File Logs will be stored in `logs/python_filename_logs.log`.
 
 <details>
@@ -59,3 +62,7 @@ sudo docker stop $(sudo docker ps -aq --filter name=DOCKER_IMAGE_NAME)
 ```
 
 </details>
+
+###
+
+This project has been set up using [aasetpy](https://github.com/aadarshlalchandani/aasetpy).
