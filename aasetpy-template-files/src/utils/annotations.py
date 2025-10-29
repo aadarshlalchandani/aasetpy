@@ -4,16 +4,16 @@
 from pynvml import (
     NVMLError,
     nvmlDeviceGetComputeRunningProcesses,
+    nvmlDeviceGetCount,
     nvmlDeviceGetHandleByIndex,
     nvmlDeviceGetMemoryInfo,
     nvmlDeviceGetName,
     nvmlDeviceGetUtilizationRates,
     nvmlInit,
     nvmlShutdown,
-    nvmlDeviceGetCount,
 )
 
-from src.utils import inspect, json, os, psutil, threading, time, wraps
+from src.utils import asyncio, inspect, json, os, psutil, threading, time, wraps
 
 
 def get_file_path(filename):
@@ -189,7 +189,7 @@ def monitor_usage(func):
     return wrapper
 
 
-def time_spent(func):
+def time_spent(return_time_spent: bool = False):
     """
     A decorator function to calculate the total time spent by any function to execute.
 
@@ -200,14 +200,38 @@ def time_spent(func):
         function: The decorated function.
     """
 
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        start_time = time.time()
-        result = func(*args, **kwargs)
-        end_time = time.time()
-        total_time = end_time - start_time
-        print({"time_spent": total_time})
+    def decorator(func):
+        rounding_int = 5
+        if asyncio.iscoroutinefunction(func):
 
-        return result
+            @wraps(func)
+            async def wrapper(*args, **kwargs):
+                start_time = time.time()
+                result = await func(*args, **kwargs)
+                end_time = time.time()
+                total_time = f"{round(end_time - start_time,rounding_int)} s"
+                print(f"Total Time Taken by '{func.__name__}': '{total_time}'")
+                if return_time_spent:
+                    return total_time, result
 
-    return wrapper
+                else:
+                    return result
+
+        else:
+
+            @wraps(func)
+            def wrapper(*args, **kwargs):
+                start_time = time.time()
+                result = func(*args, **kwargs)
+                end_time = time.time()
+                total_time = f"{round(end_time - start_time,rounding_int)} s"
+                print(f"Total Time Taken by '{func.__name__}': '{total_time}'")
+                if return_time_spent:
+                    return total_time, result
+
+                else:
+                    return result
+
+        return wrapper
+
+    return decorator
