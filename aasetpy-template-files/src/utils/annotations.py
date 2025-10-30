@@ -193,10 +193,17 @@ def time_spent(return_time_spent: bool = False):
     """
     A decorator function to calculate the total time spent by any function to execute.
 
-    Args:
+    ## Usage:
+    ```
+    @time_spent()
+    async def func(*args, **kwargs):
+        pass
+
+    ```
+    ## Args:
         func (function): The function to be decorated.
 
-    Returns:
+    ## Returns:
         function: The decorated function.
     """
 
