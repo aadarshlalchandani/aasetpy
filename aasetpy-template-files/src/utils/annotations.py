@@ -210,13 +210,12 @@ def time_spent(return_time_spent: bool = False):
     def decorator(func):
         rounding_int = 5
         if asyncio.iscoroutinefunction(func):
-
             @wraps(func)
             async def wrapper(*args, **kwargs):
                 start_time = time.time()
                 result = await func(*args, **kwargs)
                 end_time = time.time()
-                total_time = f"{round(end_time - start_time,rounding_int)} s"
+                total_time = round(end_time - start_time, rounding_int)
                 print(f"Total Time Taken by '{func.__name__}': '{total_time}'")
                 if return_time_spent:
                     return total_time, result
@@ -225,13 +224,12 @@ def time_spent(return_time_spent: bool = False):
                     return result
 
         else:
-
             @wraps(func)
             def wrapper(*args, **kwargs):
                 start_time = time.time()
                 result = func(*args, **kwargs)
                 end_time = time.time()
-                total_time = f"{round(end_time - start_time,rounding_int)} s"
+                total_time = round(end_time - start_time, rounding_int)
                 print(f"Total Time Taken by '{func.__name__}': '{total_time}'")
                 if return_time_spent:
                     return total_time, result
