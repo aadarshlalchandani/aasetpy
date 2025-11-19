@@ -35,5 +35,10 @@ def get_batches(list_of_elements: list, batch_size: int = 150):
     return batches
 
 
-def preprocess_dict(dictionary: Dict):
-    return {k: v for k, v in dictionary.items()}
+def preprocess_data(data: Union[List, Dict, Any]) -> Union[List, Dict, Any]:
+    if isinstance(data, dict):
+        return {k: preprocess_data(v) for k, v in data.items() if v}
+    elif isinstance(data, list):
+        return [preprocess_data(ele) for ele in data if ele]
+    else:
+        return data if data else None
