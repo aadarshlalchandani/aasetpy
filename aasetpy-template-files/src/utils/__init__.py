@@ -33,3 +33,7 @@ def get_batches(list_of_elements: list, batch_size: int = 150):
         batches.append(batch)
 
     return batches
+
+
+def preprocess_dict(dictionary: Dict):
+    return {k: v for k, v in dictionary.items()}
