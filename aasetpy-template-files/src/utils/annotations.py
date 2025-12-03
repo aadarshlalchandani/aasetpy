@@ -226,7 +226,7 @@ def time_spent(return_time_spent: bool = False):
                 start_time = perf_counter()
                 result = await func(*args, **kwargs)
                 duration = round(perf_counter() - start_time, rounding_int)
-                print(f"Total Time Taken by '{func.__name__}': '{duration}s'")
+                print(f"INFO: Total Time Taken by function '{func.__name__}': '{duration} s'")
                 if return_time_spent:
                     return duration, result
 
@@ -240,7 +240,7 @@ def time_spent(return_time_spent: bool = False):
                 start_time = perf_counter()
                 result = func(*args, **kwargs)
                 duration = round(perf_counter() - start_time, rounding_int)
-                print(f"Total Time Taken by '{func.__name__}': '{duration}s'")
+                print(f"INFO: Total Time Taken by function '{func.__name__}': '{duration} s'")
                 if return_time_spent:
                     return duration, result
 
