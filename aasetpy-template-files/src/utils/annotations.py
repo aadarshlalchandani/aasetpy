@@ -13,7 +13,17 @@ from pynvml import (
     nvmlShutdown,
 )
 
-from src.utils import asyncio, inspect, json, os, psutil, threading, time, wraps
+from src.utils import (
+    asyncio,
+    inspect,
+    json,
+    os,
+    perf_counter,
+    psutil,
+    threading,
+    time,
+    wraps,
+)
 
 
 def get_file_path(filename):
@@ -113,8 +123,7 @@ def get_usage_results(
     gpu_memory_usage,
     gpu_name,
 ):
-    end_time = time.time()
-    time_spent = end_time - start_time
+    time_spent = perf_counter() - start_time
     usage_results = {
         "func_name": func_name,
         "time_spent": time_spent,
@@ -165,7 +174,7 @@ def monitor_usage(func):
             gpu_name,
         ) = get_program_usage(pid)
 
-        start_time = time.time()
+        start_time = perf_counter()
         try:
             result = func(*args, **kwargs)
 
@@ -201,6 +210,7 @@ def time_spent(return_time_spent: bool = False):
 
     ```
     ## Args:
+        return_time_spent (bool, optional): If True, returns the measured runtime duration in seconds. Duration is always logged regardless. Defaults to False.
         func (function): The function to be decorated.
 
     ## Returns:
@@ -208,31 +218,31 @@ def time_spent(return_time_spent: bool = False):
     """
 
     def decorator(func):
-        rounding_int = 5
+        rounding_int = 2
         if asyncio.iscoroutinefunction(func):
+
             @wraps(func)
             async def wrapper(*args, **kwargs):
-                start_time = time.time()
+                start_time = perf_counter()
                 result = await func(*args, **kwargs)
-                end_time = time.time()
-                total_time = round(end_time - start_time, rounding_int)
-                print(f"Total Time Taken by '{func.__name__}': '{total_time}'")
+                duration = round(perf_counter() - start_time, rounding_int)
+                print(f"Total Time Taken by '{func.__name__}': '{duration}s'")
                 if return_time_spent:
-                    return total_time, result
+                    return duration, result
 
                 else:
                     return result
 
         else:
+
             @wraps(func)
             def wrapper(*args, **kwargs):
-                start_time = time.time()
+                start_time = perf_counter()
                 result = func(*args, **kwargs)
-                end_time = time.time()
-                total_time = round(end_time - start_time, rounding_int)
-                print(f"Total Time Taken by '{func.__name__}': '{total_time}'")
+                duration = round(perf_counter() - start_time, rounding_int)
+                print(f"Total Time Taken by '{func.__name__}': '{duration}s'")
                 if return_time_spent:
-                    return total_time, result
+                    return duration, result
 
                 else:
                     return result
