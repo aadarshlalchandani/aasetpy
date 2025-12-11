@@ -20,6 +20,8 @@ import psutil
 from pydantic import BaseModel, Field
 from pydantic_settings import BaseSettings
 
+from src.utils.environment_variables import env
+
 ENCODE_ALGO = "utf8"
 SPLIT_DELIMITER = "^"
 
