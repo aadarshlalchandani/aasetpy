@@ -1,9 +1,8 @@
 ## Modify 'main.py' as per your project
 ## credits: aadarshlalchandani/aasetpy
 
-from src.utils import lru_cache
+from src.utils import env, lru_cache
 from src.utils.annotations import monitor_usage
-from src.utils.environment_variables import env
 
 
 @monitor_usage
