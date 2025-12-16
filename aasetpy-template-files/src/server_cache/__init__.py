@@ -7,4 +7,4 @@ from src.rest_api import BaseModel, Request
 from src.utils import json, time, wraps
 from src.utils.environment_variables import env
 
-DEFAULT_CACHE_EXPIRE_SECONDS = float(env("DEFAULT_CACHE_EXPIRE_SECONDS", "86400"))
+DEFAULT_CACHE_EXPIRE_SECONDS: int = int(env("DEFAULT_CACHE_EXPIRE_SECONDS", "86400"))
