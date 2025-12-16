@@ -4,6 +4,7 @@
 from src.server_cache import (
     DEFAULT_CACHE_EXPIRE_SECONDS,
     BaseModel,
+    JSONResponse,
     Request,
     iscoroutinefunction,
     json,
@@ -15,19 +16,19 @@ from src.server_cache.redis import get_redis_client
 
 def cache_response(
     expire: int = DEFAULT_CACHE_EXPIRE_SECONDS,
-    drop_keys: list = ["token", "request"],
+    drop_keys: list = ["token", "request", "credentials", "creds"],
 ):
     """### Usage:
 
     ```
-    @cache_response()  
-    def func():  
+    @cache_response()
+    def func():
         return None
     ```
     #### ~ OR ~
     ```
-    @cache_response(expire=600)  
-    def func():  
+    @cache_response(expire=600)
+    def func():
         return None
     ```
     """
@@ -43,7 +44,7 @@ def cache_response(
             for i, (name, param) in enumerate(params.items()):
                 if i < len(args):
                     if isinstance(args[i], Request):
-                        request = args[i]
+                        request: Request = args[i]
                     elif isinstance(args[i], BaseModel):
                         param_dict[name] = args[i].dict()
                     else:
@@ -68,15 +69,20 @@ def cache_response(
 
             cached_response = redis_client.get(cache_key)
             if cached_response:
-                print("CACHE HIT!")
-                return json.loads(cached_response)
+                cresponse = json.loads(cached_response)
+                print("CACHE HIT!\n", "CACHED RESPONSE:", cresponse, "\n\n")
+                return cresponse
 
             if iscoroutinefunction(func):
                 response = await func(*args, **kwargs)
             else:
                 response = func(*args, **kwargs)
 
-            redis_client.setex(cache_key, expire, json.dumps(response, default=str))
+            if isinstance(response, JSONResponse):
+                redis_client.setex(cache_key, expire, response.body.decode("utf-8"))
+
+            else:
+                redis_client.setex(cache_key, expire, json.dumps(response, default=str))
 
             return response
 

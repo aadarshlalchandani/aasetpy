@@ -3,7 +3,7 @@
 
 from inspect import iscoroutinefunction, signature
 
-from src.rest_api import BaseModel, Request
+from src.rest_api import BaseModel, JSONResponse, Request
 from src.utils import json, time, wraps
 from src.utils.environment_variables import env
 
