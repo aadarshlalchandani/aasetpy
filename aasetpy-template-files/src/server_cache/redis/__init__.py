@@ -6,7 +6,7 @@ from redis import ConnectionPool, Redis
 from src.server_cache import env
 
 pool = ConnectionPool(
-    host=env.CACHE_HOST,
+    host=env("CACHE_HOST", "localhost"),
     port=int(env("CACHE_PORT", 6379)),
     db=int(env("CACHE_DB", 0)),
     max_connections=int(env("CACHE_MAX_CONNECTIONS", 3)),
