@@ -262,7 +262,7 @@ def time_spent_ms(return_time_spent: bool = False):
 
     ## Usage:
     ```
-    @time_spent()
+    @time_spent_ms()
     async def func(*args, **kwargs):
         pass
 
