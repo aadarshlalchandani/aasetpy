@@ -226,7 +226,9 @@ def time_spent(return_time_spent: bool = False):
                 start_time = perf_counter()
                 result = await func(*args, **kwargs)
                 duration = round(perf_counter() - start_time, rounding_int)
-                print(f"INFO: Total Time Taken by function '{func.__name__}': '{duration} s'")
+                print(
+                    f"INFO: Total Time Taken by function '{func.__name__}': '{duration} s'"
+                )
                 if return_time_spent:
                     return duration, result
 
@@ -240,7 +242,67 @@ def time_spent(return_time_spent: bool = False):
                 start_time = perf_counter()
                 result = func(*args, **kwargs)
                 duration = round(perf_counter() - start_time, rounding_int)
-                print(f"INFO: Total Time Taken by function '{func.__name__}': '{duration} s'")
+                print(
+                    f"INFO: Total Time Taken by function '{func.__name__}': '{duration} s'"
+                )
+                if return_time_spent:
+                    return duration, result
+
+                else:
+                    return result
+
+        return wrapper
+
+    return decorator
+
+
+def time_spent_ms(return_time_spent: bool = False):
+    """
+    A decorator function to calculate the total time spent by any function to execute.
+
+    ## Usage:
+    ```
+    @time_spent()
+    async def func(*args, **kwargs):
+        pass
+
+    ```
+    ## Args:
+        return_time_spent (bool, optional): If True, returns the measured runtime duration in seconds. Duration is always logged regardless. Defaults to False.
+        func (function): The function to be decorated.
+
+    ## Returns:
+        function: The decorated function.
+    """
+
+    def decorator(func):
+        rounding_int = 4
+        if asyncio.iscoroutinefunction(func):
+
+            @wraps(func)
+            async def wrapper(*args, **kwargs):
+                start_time = perf_counter()
+                result = await func(*args, **kwargs)
+                duration = round(perf_counter() - start_time, rounding_int) * 1000
+                print(
+                    f"INFO: Total Time Taken by function '{func.__name__}': '{duration} ms'"
+                )
+                if return_time_spent:
+                    return duration, result
+
+                else:
+                    return result
+
+        else:
+
+            @wraps(func)
+            def wrapper(*args, **kwargs):
+                start_time = perf_counter()
+                result = func(*args, **kwargs)
+                duration = round(perf_counter() - start_time, rounding_int) * 1000
+                print(
+                    f"INFO: Total Time Taken by function '{func.__name__}': '{duration} ms'"
+                )
                 if return_time_spent:
                     return duration, result
 
