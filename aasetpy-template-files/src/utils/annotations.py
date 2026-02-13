@@ -276,7 +276,7 @@ def time_spent_ms(return_time_spent: bool = False):
     """
 
     def decorator(func):
-        rounding_int = 4
+        rounding_int = 3
         if asyncio.iscoroutinefunction(func):
 
             @wraps(func)
