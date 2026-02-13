@@ -283,7 +283,7 @@ def time_spent_ms(return_time_spent: bool = False):
             async def wrapper(*args, **kwargs):
                 start_time = perf_counter()
                 result = await func(*args, **kwargs)
-                duration = round(perf_counter() - start_time, rounding_int) * 1000
+                duration = int(round(perf_counter() - start_time, rounding_int) * 1000)
                 print(
                     f"INFO: Total Time Taken by function '{func.__name__}': '{duration} ms'"
                 )
@@ -299,7 +299,7 @@ def time_spent_ms(return_time_spent: bool = False):
             def wrapper(*args, **kwargs):
                 start_time = perf_counter()
                 result = func(*args, **kwargs)
-                duration = round(perf_counter() - start_time, rounding_int) * 1000
+                duration = int(round(perf_counter() - start_time, rounding_int) * 1000)
                 print(
                     f"INFO: Total Time Taken by function '{func.__name__}': '{duration} ms'"
                 )
