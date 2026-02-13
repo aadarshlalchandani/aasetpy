@@ -27,7 +27,7 @@ SPLIT_DELIMITER = "^"
 
 
 def current_time():
-    return dtime.now().strftime("%Y-%m-%d %H:%M:%S")
+    return dtime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z")
 
 
 def text_splitter(text: str, split_delimiter: str = SPLIT_DELIMITER):
