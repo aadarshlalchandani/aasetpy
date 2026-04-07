@@ -56,7 +56,12 @@ def print_centered(statement: str, border_char: str = "-", border_char_count: in
     print(statement.center(border_char_count, border_char))
 
 
-def log_error(*args: str, mininmum_length: int = 15, maximum_length: int = 170):
+def log_error(
+    *args: str,
+    center_string: str = "ERROR",
+    mininmum_length: int = 15,
+    maximum_length: int = 170,
+):
     """Log Errors
 
     Args:
@@ -66,8 +71,11 @@ def log_error(*args: str, mininmum_length: int = 15, maximum_length: int = 170):
     max_length = max(
         min(max([len(str(stmt)) for stmt in args]), maximum_length), mininmum_length
     )
-    print_centered(" ERROR ", border_char="✖", border_char_count=max_length)
+    center_string = center_string.upper()
+    centered_string(f" {center_string} ", border_char="✖", border_char_count=max_length)
     for stmt in args:
+        if isinstance(stmt, dict):
+            stmt = json.dumps(stmt, indent=4, ensure_ascii=False)
         print(stmt)
-    print_centered(" ERROR ", border_char="✖", border_char_count=max_length)
+    centered_string(f" {center_string} ", border_char="✖", border_char_count=max_length)
     return
