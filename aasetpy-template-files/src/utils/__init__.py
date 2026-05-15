@@ -52,9 +52,26 @@ def preprocess_data(data: Union[List, Dict, Any]) -> Union[List, Dict, Any]:
         return data if data else None
 
 
-def print_centered(statement: str, border_char: str = "-", border_char_count: int = 50):
-    print(statement.center(border_char_count, border_char))
+def centered_string(
+    statement: str,
+    border_char: str = "-",
+    border_char_count: int = 50,
+    print_as_log: bool = True,
+):
+    """Get Centered String enclosed with specific characters.
 
+    Args:
+        statement (str): String to be enclosed.
+        border_char (str, optional): Character to enclose the string with. Defaults to "-".
+        border_char_count (int, optional): Number of enclosing characters. Defaults to 50.
+        print_as_log (bool, optional): Whether to print as log. Defaults to True.
+
+    Returns:
+        str: The enclosed string with specified characters.
+    """
+    if print_as_log:
+        print(statement.center(border_char_count, border_char))
+    return statement.center(border_char_count, border_char)
 
 def log_error(
     *args: str,
