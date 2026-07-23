@@ -35,10 +35,11 @@ def cache_response(
     redis_client = get_redis_client()
 
     def decorator(func):
-        @wraps(func)
-        async def wrapper(*args, **kwargs):
-            params = signature(func).parameters
+        func_is_async = iscoroutinefunction(func)
 
+        @wraps(func)
+        async def async_wrapper(*args, **kwargs):
+            params = signature(func).parameters
             param_dict = {}
             request = None
             for i, (name, param) in enumerate(params.items()):
@@ -60,7 +61,7 @@ def cache_response(
             [param_dict.pop(key) for key in drop_keys if key in param_dict]
 
             if request and request.method == "POST":
-                body = request.json()
+                body = await request.json()
                 param_dict.update(body)
 
             cache_key = (
@@ -73,19 +74,65 @@ def cache_response(
                 print("CACHE HIT!\n", "CACHED RESPONSE:", cresponse, "\n\n")
                 return cresponse
 
-            if iscoroutinefunction(func):
-                response = await func(*args, **kwargs)
-            else:
-                response = func(*args, **kwargs)
+            response = (
+                await func(*args, **kwargs) if func_is_async else func(*args, **kwargs)
+            )
 
             if isinstance(response, JSONResponse):
                 redis_client.setex(cache_key, expire, response.body.decode("utf-8"))
-
             else:
                 redis_client.setex(cache_key, expire, json.dumps(response, default=str))
 
             return response
 
-        return wrapper
+        @wraps(func)
+        def sync_wrapper(*args, **kwargs):
+            params = signature(func).parameters
+            param_dict = {}
+            request = None
+
+            for i, (name, param) in enumerate(params.items()):
+                if i < len(args):
+                    if isinstance(args[i], Request):
+                        request: Request = args[i]
+                    elif isinstance(args[i], BaseModel):
+                        param_dict[name] = args[i].dict()
+                    else:
+                        param_dict[name] = args[i]
+                elif name in kwargs:
+                    if isinstance(kwargs[name], BaseModel):
+                        param_dict[name] = kwargs[name].dict()
+                    else:
+                        param_dict[name] = kwargs[name]
+                elif param.default is not param.empty:
+                    param_dict[name] = param.default
+
+            [param_dict.pop(key) for key in drop_keys if key in param_dict]
+
+            if request and request.method == "POST":
+                raise RuntimeError(
+                    "Synchronous function with @cache_response cannot process async request.json()"
+                )
+
+            cache_key = (
+                f"{func.__name__}:{json.dumps(param_dict, sort_keys=True, default=str)}"
+            )
+
+            cached_response = redis_client.get(cache_key)
+            if cached_response:
+                cresponse = json.loads(cached_response)
+                print("CACHE HIT!\n", "CACHED RESPONSE:", cresponse, "\n\n")
+                return cresponse
+
+            response = func(*args, **kwargs)
+
+            if isinstance(response, JSONResponse):
+                redis_client.setex(cache_key, expire, response.body.decode("utf-8"))
+            else:
+                redis_client.setex(cache_key, expire, json.dumps(response, default=str))
+
+            return response
+
+        return async_wrapper if func_is_async else sync_wrapper
 
     return decorator
