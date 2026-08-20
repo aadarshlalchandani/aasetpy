@@ -3,6 +3,7 @@
 
 import uvicorn
 from fastapi import Depends, FastAPI, HTTPException, Request, status
+from fastapi.responses import JSONResponse
 
 from src.utils import (
     SPLIT_DELIMITER,
