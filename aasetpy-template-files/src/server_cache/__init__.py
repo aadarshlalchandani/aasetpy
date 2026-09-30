@@ -3,8 +3,9 @@
 
 from inspect import iscoroutinefunction, signature
 
-from src.rest_api import BaseModel, JSONResponse, Request
-from src.utils import json, time, wraps
-from src.utils.environment_variables import env
+from fastapi import Request
+from fastapi.responses import JSONResponse
+
+from src.utils import Basemodel, env, json, time, wraps
 
 DEFAULT_CACHE_EXPIRE_SECONDS: int = int(env("DEFAULT_CACHE_EXPIRE_SECONDS", "86400"))
