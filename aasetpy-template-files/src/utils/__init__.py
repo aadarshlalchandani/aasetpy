@@ -2,6 +2,7 @@
 ## credits: aadarshlalchandani/aasetpy
 
 import asyncio
+import base64
 import datetime
 import inspect
 import json
@@ -97,3 +98,11 @@ def log_error(
         print(stmt)
     centered_string(f" {center_string} ", border_char="✖", border_char_count=max_length)
     return
+
+
+def b64_encode(string: str, byte_repr: str = "utf-8"):
+    return string.encode(byte_repr)
+
+
+def b64_decode(b64_encoded_string: str, byte_repr: str = "utf-8"):
+    return base64.b64encode(b64_encoded_string).decode(byte_repr)
