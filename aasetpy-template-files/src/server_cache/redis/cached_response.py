@@ -4,11 +4,11 @@
 from src.server_cache import (
     DEFAULT_CACHE_EXPIRE_SECONDS,
     BaseModel,
-    JSONResponse,
     Request,
     b64_encode,
     iscoroutinefunction,
     json,
+    pickle,
     signature,
     wraps,
 )
@@ -68,10 +68,7 @@ def cache_response(
             return f"{func.__name__}:{b64_encode(json.dumps(param_dict, sort_keys=True, default=str))}"
 
         def set_cache(cache_key, response):
-            if isinstance(response, JSONResponse):
-                redis_client.setex(cache_key, expire, response.body.decode("utf-8"))
-            else:
-                redis_client.setex(cache_key, expire, json.dumps(response, default=str))
+            redis_client.setex(cache_key, expire, pickle.dumps(response))
 
         if is_async:
 
@@ -90,13 +87,16 @@ def cache_response(
                 cache_key = get_cache_key(param_dict)
                 cached_response = redis_client.get(cache_key)
                 if cached_response:
-                    cresponse = json.loads(cached_response)
+                    cresponse = pickle.loads(cached_response)
                     print(f"CACHE HIT '{func.__name__}'!\n")
                     return cresponse
 
-                response = await func(*args, **kwargs)
-                set_cache(cache_key, response)
-                return response
+                try:
+                    response = await func(*args, **kwargs)
+                    set_cache(cache_key, response)
+                    return response
+                except Exception:
+                    raise
 
         else:
 
@@ -116,13 +116,16 @@ def cache_response(
                 cache_key = get_cache_key(param_dict)
                 cached_response = redis_client.get(cache_key)
                 if cached_response:
-                    cresponse = json.loads(cached_response)
+                    cresponse = pickle.loads(cached_response)
                     print(f"CACHE HIT '{func.__name__}'!\n")
                     return cresponse
 
-                response = func(*args, **kwargs)
-                set_cache(cache_key, response)
-                return response
+                try:
+                    response = func(*args, **kwargs)
+                    set_cache(cache_key, response)
+                    return response
+                except Exception:
+                    raise
 
         return wrapper
 
