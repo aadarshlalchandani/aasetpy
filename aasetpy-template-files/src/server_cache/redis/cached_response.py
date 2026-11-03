@@ -93,10 +93,19 @@ def cache_response(
 
                 try:
                     response = await func(*args, **kwargs)
-                    set_cache(cache_key, response)
-                    return response
+                    if (
+                        hasattr(response, "status_code")
+                        and isinstance(response.status_code, int)
+                        and response.status_code >= 400
+                    ):
+                        return response
+                    if isinstance(response, Exception):
+                        return response
                 except Exception:
                     raise
+
+                set_cache(cache_key, response)
+                return response
 
         else:
 
@@ -122,10 +131,19 @@ def cache_response(
 
                 try:
                     response = func(*args, **kwargs)
-                    set_cache(cache_key, response)
-                    return response
+                    if (
+                        hasattr(response, "status_code")
+                        and isinstance(response.status_code, int)
+                        and response.status_code >= 400
+                    ):
+                        return response
+                    if isinstance(response, Exception):
+                        return response
                 except Exception:
                     raise
+
+                set_cache(cache_key, response)
+                return response
 
         return wrapper
 
