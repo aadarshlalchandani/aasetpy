@@ -20,3 +20,4 @@ def get_redis_client():
 
 def flush_redis_db():
     get_redis_client().flushdb()
+    print("REDIS CACHE DATABASE FLUSHED SUCCESSFULLY!")
