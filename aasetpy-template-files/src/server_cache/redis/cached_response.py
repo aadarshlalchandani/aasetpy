@@ -49,6 +49,8 @@ def cache_response(
                         request = args[i]
                     elif isinstance(args[i], BaseModel):
                         param_dict[name] = args[i].dict()
+                    elif isinstance(args[i], str):
+                        param_dict[name] = args[i].lower()
                     else:
                         param_dict[name] = args[i]
                 elif name in kwargs:
