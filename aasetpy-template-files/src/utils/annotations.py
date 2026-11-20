@@ -14,7 +14,6 @@ from pynvml import (
 )
 
 from src.utils import (
-    asyncio,
     inspect,
     json,
     os,
@@ -33,11 +32,11 @@ def get_file_path(filename):
 def get_program_pid(script_path: str, filename: str):
     process_entities = ["pid", "name", "cmdline"]
     processes = psutil.process_iter(process_entities)
-    program_pid = [
+    program_pid = next(
         process.info["pid"]
         for process in processes
         if script_path in process.info["cmdline"] or filename in process.info["cmdline"]
-    ][0]
+    )
     return program_pid
 
 
@@ -88,7 +87,6 @@ def get_program_usage(pid: int, interval: float = 1.0):
                     )
                 except NVMLError:
                     print("nvml error get compute running processes")
-                    pass
 
             except (psutil.NoSuchProcess, KeyboardInterrupt):
                 break
@@ -219,7 +217,7 @@ def time_spent(return_time_spent: bool = False):
 
     def decorator(func):
         rounding_int = 2
-        if asyncio.iscoroutinefunction(func):
+        if inspect.iscoroutinefunction(func):
 
             @wraps(func)
             async def wrapper(*args, **kwargs):
@@ -277,7 +275,7 @@ def time_spent_ms(return_time_spent: bool = False):
 
     def decorator(func):
         rounding_int = 3
-        if asyncio.iscoroutinefunction(func):
+        if inspect.iscoroutinefunction(func):
 
             @wraps(func)
             async def wrapper(*args, **kwargs):
