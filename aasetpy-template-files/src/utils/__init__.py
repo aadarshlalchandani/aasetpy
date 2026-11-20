@@ -26,6 +26,7 @@ from src.utils.environment_variables import env
 
 ENCODE_ALGO = "utf8"
 SPLIT_DELIMITER = "^"
+TODAY_DATE = dtime.now().strftime("%d_%m_%Y")
 
 
 def current_time():
@@ -97,7 +98,6 @@ def log_error(
             stmt = json.dumps(stmt, indent=4, ensure_ascii=False)
         print(stmt)
     centered_string(f" {center_string} ", border_char="✖", border_char_count=max_length)
-    return
 
 
 def b64_encode(string: str, byte_repr: str = "utf-8"):
