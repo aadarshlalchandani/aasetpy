@@ -1,6 +1,9 @@
 ## Modify 'src/utils' as per your project
 ## credits: aadarshlalchandani/aasetpy
 
+from contextlib import redirect_stderr, redirect_stdout
+from threading import Lock
+
 from pynvml import (
     NVMLError,
     nvmlDeviceGetComputeRunningProcesses,
@@ -14,6 +17,8 @@ from pynvml import (
 )
 
 from src.utils import (
+    TODAY_DATE,
+    Path,
     inspect,
     json,
     os,
@@ -23,6 +28,26 @@ from src.utils import (
     time,
     wraps,
 )
+
+_extract_log_lock = Lock()
+
+
+def log_function_output(function):
+    @wraps(function)
+    def wrapper(*args, **kwargs):
+        log_path = Path("logs") / (f"{TODAY_DATE}_{function.__name__}_logs.log")
+        log_path.parent.mkdir(parents=True, exist_ok=True)
+
+        # shortcut: redirects process-wide; use logging handlers if unrelated threads emit output.
+        with (
+            _extract_log_lock,
+            log_path.open("a", encoding="utf-8") as log_file,
+            redirect_stdout(log_file),
+            redirect_stderr(log_file),
+        ):
+            return function(*args, **kwargs)
+
+    return wrapper
 
 
 def get_file_path(filename):
